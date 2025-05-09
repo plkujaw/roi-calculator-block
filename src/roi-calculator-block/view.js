@@ -25,6 +25,7 @@ console.log("Hello World! (from create-block-roi-calculator-block block)");
 /* eslint-enable no-console */
 
 import { render, useState } from "@wordpress/element";
+import { calculateResults } from "./calculatiorUtils";
 
 function ROICalculatorFrontEnd(props) {
 	const [inputs, setInputs] = useState({ ...props });
@@ -35,6 +36,7 @@ function ROICalculatorFrontEnd(props) {
 			[key]: value,
 		}));
 	};
+	const results = calculateResults(inputs);
 
 	return (
 		<div className="roi-calculator-block">
@@ -105,6 +107,11 @@ function ROICalculatorFrontEnd(props) {
 					}
 				/>
 			</div>
+			<div>Profit per year: {results.profitPerYear}</div>
+			<div>Units per year: {results.unitsPerYear}</div>
+			<div>Hours in a week 24/7: {results.hoursInWeek}</div>
+			<div>Extra hours: {results.extraHours}</div>
+			<div>Extra extraUnitsPerWeek: {results.extraUnitsPerWeek}</div>
 		</div>
 	);
 }

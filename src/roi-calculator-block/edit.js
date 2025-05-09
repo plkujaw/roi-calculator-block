@@ -29,7 +29,11 @@ import "./editor.scss";
  *
  * @return {Element} Element to render.
  */
+
+import { calculateResults } from "./calculatiorUtils";
+
 export default function Edit({ attributes, setAttributes }) {
+	const results = calculateResults(attributes);
 	return (
 		<div className="roi-calculator-block" {...useBlockProps()}>
 			<div className="roi-calculator-block__percentage-increase">
@@ -122,6 +126,11 @@ export default function Edit({ attributes, setAttributes }) {
 					}
 				/>
 			</div>
+			<div>Profit per year: {results.profitPerYear}</div>
+			<div>Units per year: {results.unitsPerYear}</div>
+			<div>Hours in a week 24/7: {results.hoursInWeek}</div>
+			<div>Extra hours: {results.extraHours}</div>
+			<div>Extra extraUnitsPerWeek: {results.extraUnitsPerWeek}</div>
 		</div>
 	);
 }
