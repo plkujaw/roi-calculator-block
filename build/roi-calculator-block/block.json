@@ -11,6 +11,32 @@
   "supports": {
     "html": false
   },
+  "attributes": {
+    "percentageIncrease": {
+      "type": "number",
+      "default": 1
+    },
+    "hours": {
+      "type": "number",
+      "default": 12
+    },
+    "days": {
+      "type": "number",
+      "default": 5
+    },
+    "weeksPerYear": {
+      "type": "number",
+      "default": 52
+    },
+    "unitsPerHour": {
+      "type": "number",
+      "default": 22500
+    },
+    "profitPerUnit": {
+      "type": "number",
+      "default": 2
+    }
+  },
   "textdomain": "roi-calculator-block",
   "editorScript": "file:./index.js",
   "editorStyle": "file:./index.css",

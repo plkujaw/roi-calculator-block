@@ -3,7 +3,7 @@
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from "@wordpress/i18n";
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -11,7 +11,7 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { useBlockProps } from '@wordpress/block-editor';
+import { useBlockProps } from "@wordpress/block-editor";
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -19,7 +19,7 @@ import { useBlockProps } from '@wordpress/block-editor';
  *
  * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
  */
-import './editor.scss';
+import "./editor.scss";
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -29,13 +29,99 @@ import './editor.scss';
  *
  * @return {Element} Element to render.
  */
-export default function Edit() {
+export default function Edit({ attributes, setAttributes }) {
 	return (
-		<p { ...useBlockProps() }>
-			{ __(
-				'ROI Calculator Block – hello from the editor!',
-				'roi-calculator-block'
-			) }
-		</p>
+		<div className="roi-calculator-block" {...useBlockProps()}>
+			<div className="roi-calculator-block__percentage-increase">
+				<label htmlFor="percentage-increase">
+					{__("Percentage Increase", "roi-calculator-block")}
+				</label>
+				<input
+					id="percentage-increase"
+					type="range"
+					min="1"
+					max="100"
+					step="1"
+					value={attributes.percentageIncrease}
+					onChange={(e) =>
+						setAttributes({ percentageIncrease: Number(e.target.value) })
+					}
+				/>
+				<span>{attributes.percentageIncrease}%</span>
+			</div>
+			<div className="roi-calculator-block__hours">
+				<label htmlFor="hours">{__("Hours", "roi-calculator-block")}</label>
+				<input
+					id="hours"
+					type="range"
+					min={1}
+					max={24}
+					step={1}
+					value={attributes.hours}
+					onChange={(e) => setAttributes({ hours: Number(e.target.value) })}
+				/>
+				<span>{attributes.hours}</span>
+			</div>
+			<div className="roi-calculator-block__days">
+				<label htmlFor="days">{__("Days", "roi-calculator-block")}</label>
+				<input
+					id="days"
+					type="range"
+					min={1}
+					max={31}
+					step={1}
+					value={attributes.days}
+					onChange={(e) => setAttributes({ days: Number(e.target.value) })}
+				/>
+				<span>{attributes.days}</span>
+			</div>
+			<div className="roi-calculator-block__weeks-per-year">
+				<label htmlFor="weeks-per-year">
+					{__("Weeks per Year", "roi-calculator-block")}
+				</label>
+				<input
+					id="weeks-per-year"
+					type="range"
+					min={1}
+					max={52}
+					step={1}
+					value={attributes.weeksPerYear}
+					onChange={(e) =>
+						setAttributes({ weeksPerYear: Number(e.target.value) })
+					}
+				/>
+				<span>{attributes.weeksPerYear}</span>
+			</div>
+			<div className="roi-calculator-block__units-per-hour">
+				<label htmlFor="units-per-hour">
+					{__("Units per Hour", "roi-calculator-block")}
+				</label>
+				<input
+					id="units-per-hour"
+					type="number"
+					min={0}
+					step={1}
+					value={attributes.unitsPerHour}
+					onChange={(e) =>
+						setAttributes({ unitsPerHour: Number(e.target.value) })
+					}
+				/>
+			</div>
+			<div className="roi-calculator-block__profit-per-unit">
+				<label htmlFor="profit-per-unit">
+					{__("Profit per Unit", "roi-calculator-block")}
+				</label>
+				<input
+					id="profit-per-unit"
+					type="number"
+					min={0}
+					step={0.01}
+					value={attributes.profitPerUnit.toFixed(2)}
+					onChange={(e) =>
+						setAttributes({ profitPerUnit: parseFloat(e.target.value) })
+					}
+				/>
+			</div>
+		</div>
 	);
 }

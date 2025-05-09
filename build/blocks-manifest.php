@@ -16,6 +16,32 @@ return array(
 		'supports' => array(
 			'html' => false
 		),
+		'attributes' => array(
+			'percentageIncrease' => array(
+				'type' => 'number',
+				'default' => 1
+			),
+			'hours' => array(
+				'type' => 'number',
+				'default' => 12
+			),
+			'days' => array(
+				'type' => 'number',
+				'default' => 5
+			),
+			'weeksPerYear' => array(
+				'type' => 'number',
+				'default' => 52
+			),
+			'unitsPerHour' => array(
+				'type' => 'number',
+				'default' => 22500
+			),
+			'profitPerUnit' => array(
+				'type' => 'number',
+				'default' => 2
+			)
+		),
 		'textdomain' => 'roi-calculator-block',
 		'editorScript' => 'file:./index.js',
 		'editorStyle' => 'file:./index.css',
