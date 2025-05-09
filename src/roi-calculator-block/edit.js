@@ -39,9 +39,9 @@ export default function Edit({ attributes, setAttributes }) {
 				<input
 					id="percentage-increase"
 					type="range"
-					min="1"
-					max="100"
-					step="1"
+					min={1}
+					max={100}
+					step={1}
 					value={attributes.percentageIncrease}
 					onChange={(e) =>
 						setAttributes({ percentageIncrease: Number(e.target.value) })
