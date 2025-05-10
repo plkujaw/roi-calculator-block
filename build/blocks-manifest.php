@@ -21,25 +21,69 @@ return array(
 				'type' => 'number',
 				'default' => 1
 			),
+			'percentageIncreaseLabel' => array(
+				'type' => 'string',
+				'default' => 'Percentage Increase'
+			),
 			'hours' => array(
 				'type' => 'number',
 				'default' => 12
+			),
+			'hoursLabel' => array(
+				'type' => 'string',
+				'default' => 'Hours'
 			),
 			'days' => array(
 				'type' => 'number',
 				'default' => 5
 			),
+			'daysLabel' => array(
+				'type' => 'string',
+				'default' => 'Days'
+			),
 			'weeksPerYear' => array(
 				'type' => 'number',
 				'default' => 52
+			),
+			'weeksPerYearLabel' => array(
+				'type' => 'string',
+				'default' => 'Weeks per year'
 			),
 			'unitsPerHour' => array(
 				'type' => 'number',
 				'default' => 22500
 			),
+			'unitsPerHourLabel' => array(
+				'type' => 'string',
+				'default' => 'Units per hour'
+			),
 			'profitPerUnit' => array(
 				'type' => 'number',
 				'default' => 2
+			),
+			'profitPerUnitLabel' => array(
+				'type' => 'string',
+				'default' => 'Profit per unit'
+			),
+			'profitPerYearLabel' => array(
+				'type' => 'string',
+				'default' => 'Profit per year'
+			),
+			'unitsPerYearLabel' => array(
+				'type' => 'string',
+				'default' => 'Units per year'
+			),
+			'hoursInWeekLabel' => array(
+				'type' => 'string',
+				'default' => 'Hours in a week 24/7'
+			),
+			'extraHoursLabel' => array(
+				'type' => 'string',
+				'default' => 'Extra hours'
+			),
+			'extraUnitsPerWeekLabel' => array(
+				'type' => 'string',
+				'default' => 'Extra units per week'
 			)
 		),
 		'textdomain' => 'roi-calculator-block',

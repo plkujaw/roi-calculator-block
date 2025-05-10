@@ -30,16 +30,25 @@ import "./editor.scss";
  * @return {Element} Element to render.
  */
 
-import { calculateResults } from "./calculatiorUtils";
+import { calculateResults } from "./calculatorUtils";
+import metadata from "./block.json";
 
 export default function Edit({ attributes, setAttributes }) {
 	const results = calculateResults(attributes);
 	return (
 		<div className="roi-calculator-block" {...useBlockProps()}>
 			<div className="roi-calculator-block__percentage-increase">
-				<label htmlFor="percentage-increase">
-					{__("Percentage Increase", "roi-calculator-block")}
-				</label>
+				<input
+					type="text"
+					value={attributes.percentageIncreaseLabel}
+					onChange={(e) =>
+						setAttributes({ percentageIncreaseLabel: e.target.value })
+					}
+					placeholder={__(
+						metadata.attributes.percentageIncreaseLabel.default,
+						"roi-calculator-block",
+					)}
+				/>
 				<input
 					id="percentage-increase"
 					type="range"
@@ -54,7 +63,15 @@ export default function Edit({ attributes, setAttributes }) {
 				<span>{attributes.percentageIncrease}%</span>
 			</div>
 			<div className="roi-calculator-block__hours">
-				<label htmlFor="hours">{__("Hours", "roi-calculator-block")}</label>
+				<input
+					type="text"
+					value={attributes.hoursLabel}
+					onChange={(e) => setAttributes({ hoursLabel: e.target.value })}
+					placeholder={__(
+						metadata.attributes.hoursLabel.default,
+						"roi-calculator-block",
+					)}
+				/>
 				<input
 					id="hours"
 					type="range"
@@ -67,7 +84,15 @@ export default function Edit({ attributes, setAttributes }) {
 				<span>{attributes.hours}</span>
 			</div>
 			<div className="roi-calculator-block__days">
-				<label htmlFor="days">{__("Days", "roi-calculator-block")}</label>
+				<input
+					type="text"
+					value={attributes.daysLabel}
+					onChange={(e) => setAttributes({ daysLabel: e.target.value })}
+					placeholder={__(
+						metadata.attributes.daysLabel.default,
+						"roi-calculator-block",
+					)}
+				/>
 				<input
 					id="days"
 					type="range"
@@ -80,9 +105,15 @@ export default function Edit({ attributes, setAttributes }) {
 				<span>{attributes.days}</span>
 			</div>
 			<div className="roi-calculator-block__weeks-per-year">
-				<label htmlFor="weeks-per-year">
-					{__("Weeks per Year", "roi-calculator-block")}
-				</label>
+				<input
+					type="text"
+					value={attributes.weeksPerYearLabel}
+					onChange={(e) => setAttributes({ weeksPerYearLabel: e.target.value })}
+					placeholder={__(
+						metadata.attributes.weeksPerYearLabel.default,
+						"roi-calculator-block",
+					)}
+				/>
 				<input
 					id="weeks-per-year"
 					type="range"
@@ -97,9 +128,15 @@ export default function Edit({ attributes, setAttributes }) {
 				<span>{attributes.weeksPerYear}</span>
 			</div>
 			<div className="roi-calculator-block__units-per-hour">
-				<label htmlFor="units-per-hour">
-					{__("Units per Hour", "roi-calculator-block")}
-				</label>
+				<input
+					type="text"
+					value={attributes.unitsPerHourLabel}
+					onChange={(e) => setAttributes({ unitsPerHourLabel: e.target.value })}
+					placeholder={__(
+						metadata.attributes.unitsPerHourLabel.default,
+						"roi-calculator-block",
+					)}
+				/>
 				<input
 					id="units-per-hour"
 					type="number"
@@ -112,9 +149,17 @@ export default function Edit({ attributes, setAttributes }) {
 				/>
 			</div>
 			<div className="roi-calculator-block__profit-per-unit">
-				<label htmlFor="profit-per-unit">
-					{__("Profit per Unit", "roi-calculator-block")}
-				</label>
+				<input
+					type="text"
+					value={attributes.profitPerUnitLabel}
+					onChange={(e) =>
+						setAttributes({ profitPerUnitLabel: e.target.value })
+					}
+					placeholder={__(
+						metadata.attributes.profitPerUnitLabel.default,
+						"roi-calculator-block",
+					)}
+				/>
 				<input
 					id="profit-per-unit"
 					type="number"
@@ -124,13 +169,77 @@ export default function Edit({ attributes, setAttributes }) {
 					onChange={(e) =>
 						setAttributes({ profitPerUnit: parseFloat(e.target.value) })
 					}
+					placeholder={__(
+						metadata.attributes.profitPerUnitLabel.default,
+						"roi-calculator-block",
+					)}
 				/>
+				<span>{results.profitPerUnit}</span>
 			</div>
-			<div>Profit per year: {results.profitPerYear}</div>
-			<div>Units per year: {results.unitsPerYear}</div>
-			<div>Hours in a week 24/7: {results.hoursInWeek}</div>
-			<div>Extra hours: {results.extraHours}</div>
-			<div>Extra extraUnitsPerWeek: {results.extraUnitsPerWeek}</div>
+			<div>
+				<input
+					type="text"
+					value={attributes.profitPerYearLabel}
+					onChange={(e) =>
+						setAttributes({ profitPerYearLabel: e.target.value })
+					}
+					placeholder={__(
+						metadata.attributes.profitPerYearLabel.default,
+						"roi-calculator-block",
+					)}
+				/>
+				<span>{results.profitPerYear}</span>
+			</div>
+			<div>
+				<input
+					type="text"
+					value={attributes.unitsPerYearLabel}
+					onChange={(e) => setAttributes({ unitsPerYearLabel: e.target.value })}
+					placeholder={__(
+						metadata.attributes.unitsPerYearLabel.default,
+						"roi-calculator-block",
+					)}
+				/>
+				<span>{results.unitsPerYear}</span>
+			</div>
+			<div>
+				<input
+					type="text"
+					value={attributes.hoursInWeekLabel}
+					onChange={(e) => setAttributes({ hoursInWeekLabel: e.target.value })}
+					placeholder={__(
+						metadata.attributes.hoursInWeekLabel.default,
+						"roi-calculator-block",
+					)}
+				/>
+				<span>{results.hoursInWeek}</span>
+			</div>
+			<div>
+				<input
+					type="text"
+					value={attributes.extraHoursLabel}
+					onChange={(e) => setAttributes({ extraHoursLabel: e.target.value })}
+					placeholder={__(
+						metadata.attributes.extraHoursLabel.default,
+						"roi-calculator-block",
+					)}
+				/>
+				<span>{results.extraHours}</span>
+			</div>
+			<div>
+				<input
+					type="text"
+					value={attributes.extraUnitsPerWeekLabel}
+					onChange={(e) =>
+						setAttributes({ extraUnitsPerWeekLabel: e.target.value })
+					}
+					placeholder={__(
+						metadata.attributes.extraUnitsPerWeekLabel.default,
+						"roi-calculator-block",
+					)}
+				/>
+				<span>{results.extraUnitsPerWeek}</span>
+			</div>
 		</div>
 	);
 }

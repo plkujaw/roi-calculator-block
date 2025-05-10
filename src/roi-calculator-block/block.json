@@ -16,25 +16,69 @@
 			"type": "number",
 			"default": 1
 		},
+		"percentageIncreaseLabel": {
+			"type": "string",
+			"default": "Percentage Increase"
+		},
 		"hours": {
 			"type": "number",
 			"default": 12
+		},
+		"hoursLabel": {
+			"type": "string",
+			"default": "Hours"
 		},
 		"days": {
 			"type": "number",
 			"default": 5
 		},
+		"daysLabel": {
+			"type": "string",
+			"default": "Days"
+		},
 		"weeksPerYear": {
 			"type": "number",
 			"default": 52
+		},
+		"weeksPerYearLabel": {
+			"type": "string",
+			"default": "Weeks per year"
 		},
 		"unitsPerHour": {
 			"type": "number",
 			"default": 22500
 		},
+		"unitsPerHourLabel": {
+			"type": "string",
+			"default": "Units per hour"
+		},
 		"profitPerUnit": {
 			"type": "number",
 			"default": 2.00
+		},
+		"profitPerUnitLabel": {
+			"type": "string",
+			"default": "Profit per unit"
+		},
+		"profitPerYearLabel": {
+			"type": "string",
+			"default": "Profit per year"
+		},
+		"unitsPerYearLabel": {
+			"type": "string",
+			"default": "Units per year"
+		},
+		"hoursInWeekLabel": {
+			"type": "string",
+			"default": "Hours in a week 24/7"
+		},
+		"extraHoursLabel": {
+			"type": "string",
+			"default": "Extra hours"
+		},
+		"extraUnitsPerWeekLabel": {
+			"type": "string",
+			"default": "Extra units per week"
 		}
 	},
 	"textdomain": "roi-calculator-block",

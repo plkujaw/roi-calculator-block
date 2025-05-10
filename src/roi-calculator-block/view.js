@@ -25,7 +25,9 @@ console.log("Hello World! (from create-block-roi-calculator-block block)");
 /* eslint-enable no-console */
 
 import { render, useState } from "@wordpress/element";
-import { calculateResults } from "./calculatiorUtils";
+import { calculateResults } from "./calculatorUtils";
+import metadata from "./block.json";
+import { __ } from "@wordpress/i18n";
 
 function ROICalculatorFrontEnd(props) {
 	const [inputs, setInputs] = useState({ ...props });
@@ -41,7 +43,13 @@ function ROICalculatorFrontEnd(props) {
 	return (
 		<div className="roi-calculator-block">
 			<div>
-				<label>Percentage Increase</label>
+				<span>
+					{props.percentageIncreaseLabel ||
+						__(
+							metadata.attributes.percentageIncreaseLabel.default,
+							"roi-calculator-block",
+						)}
+				</span>
 				<input
 					type="range"
 					min={1}
@@ -54,7 +62,10 @@ function ROICalculatorFrontEnd(props) {
 				<span>{inputs.percentageIncrease}%</span>
 			</div>
 			<div>
-				<label>Hours</label>
+				<span>
+					{props.hoursLabel ||
+						__(metadata.attributes.hoursLabel.default, "roi-calculator-block")}
+				</span>
 				<input
 					type="range"
 					min={1}
@@ -65,7 +76,10 @@ function ROICalculatorFrontEnd(props) {
 				<span>{inputs.hours}</span>
 			</div>
 			<div>
-				<label>Days</label>
+				<span>
+					{props.daysLabel ||
+						__(metadata.attributes.daysLabel.default, "roi-calculator-block")}
+				</span>
 				<input
 					type="range"
 					min={1}
@@ -76,7 +90,13 @@ function ROICalculatorFrontEnd(props) {
 				<span>{inputs.days}</span>
 			</div>
 			<div>
-				<label>Weeks per Year</label>
+				<span>
+					{props.weeksPerYearLabel ||
+						__(
+							metadata.attributes.weeksPerYearLabel.default,
+							"roi-calculator-block",
+						)}
+				</span>
 				<input
 					type="range"
 					min={1}
@@ -87,7 +107,13 @@ function ROICalculatorFrontEnd(props) {
 				<span>{inputs.weeksPerYear}</span>
 			</div>
 			<div>
-				<label>Units per Hour</label>
+				<span>
+					{props.unitsPerHourLabel ||
+						__(
+							metadata.attributes.unitsPerHourLabel.default,
+							"roi-calculator-block",
+						)}
+				</span>
 				<input
 					type="number"
 					min={0}
@@ -96,7 +122,13 @@ function ROICalculatorFrontEnd(props) {
 				/>
 			</div>
 			<div>
-				<label>Profit per Unit</label>
+				<span>
+					{props.profitPerUnitLabel ||
+						__(
+							metadata.attributes.profitPerUnitLabel.default,
+							"roi-calculator-block",
+						)}
+				</span>
 				<input
 					type="number"
 					min={0}
@@ -107,11 +139,46 @@ function ROICalculatorFrontEnd(props) {
 					}
 				/>
 			</div>
-			<div>Profit per year: {results.profitPerYear}</div>
-			<div>Units per year: {results.unitsPerYear}</div>
-			<div>Hours in a week 24/7: {results.hoursInWeek}</div>
-			<div>Extra hours: {results.extraHours}</div>
-			<div>Extra extraUnitsPerWeek: {results.extraUnitsPerWeek}</div>
+			<div>
+				{inputs.profitPerYearLabel ||
+					__(
+						metadata.attributes.profitPerYearLabel.default,
+						"roi-calculator-block",
+					)}
+				{results.profitPerYear}
+			</div>
+			<div>
+				{inputs.unitsPerYearLabel ||
+					__(
+						metadata.attributes.unitsPerYearLabel.default,
+						"roi-calculator-block",
+					)}
+				{results.unitsPerYear}
+			</div>
+			<div>
+				{inputs.hoursInWeekLabel ||
+					__(
+						metadata.attributes.hoursInWeekLabel.default,
+						"roi-calculator-block",
+					)}
+				{results.hoursInWeek}
+			</div>
+			<div>
+				{inputs.extraHoursLabel ||
+					__(
+						metadata.attributes.extraHoursLabel.default,
+						"roi-calculator-block",
+					)}
+				{results.extraHours}
+			</div>
+			<div>
+				{inputs.extraUnitsPerWeekLabel ||
+					__(
+						metadata.attributes.extraUnitsPerWeekLabel.default,
+						"roi-calculator-block",
+					)}
+				{results.extraUnitsPerWeek}
+			</div>
 		</div>
 	);
 }
