@@ -84,6 +84,22 @@ return array(
 			'extraUnitsPerWeekLabel' => array(
 				'type' => 'string',
 				'default' => 'Extra units per week'
+			),
+			'backgroundColor' => array(
+				'type' => 'string',
+				'default' => '#3e6bfc'
+			),
+			'sliderColor' => array(
+				'type' => 'string',
+				'default' => '#58ffa8'
+			),
+			'textColor' => array(
+				'type' => 'string',
+				'default' => '#fff'
+			),
+			'accentColor' => array(
+				'type' => 'string',
+				'default' => '#fff'
 			)
 		),
 		'textdomain' => 'roi-calculator-block',

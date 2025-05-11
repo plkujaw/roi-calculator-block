@@ -17,15 +17,19 @@ $font-size-lg: 1.5rem;
 $font-size-xl: 2rem;
 
 .roi-calculator {
-  background: #3e6bfc;
+  background: var(--roi-bg-color, #3e6bfc);
   border-radius: 24px;
-  color: #fff;
+  color: var(--roi-text-color, #fff);
   margin: $spacing-md auto;
   max-width: 900px;
-  padding: $spacing-sm;
 
-  &__inputs {
-    margin-bottom: $spacing-md;
+  &__inputs,
+  &__results {
+    padding: $spacing-sm;
+
+    @media (min-width: $breakpoint-md) {
+      padding: $spacing-md;
+    }
   }
 
   &__row {
@@ -73,10 +77,10 @@ $font-size-xl: 2rem;
         -webkit-appearance: none;
         appearance: none;
         background: linear-gradient(to right,
-            #58ffa8 0%,
-            #58ffa8 var(--percent, 50%),
-            #fff var(--percent, 50%),
-            #fff 100%);
+            var(--slider-color, #58ffa8) 0%,
+            var(--slider-color, #58ffa8) var(--percent, 50%),
+            var(--roi-accent-color, #fff) var(--percent, 50%),
+            var(--roi-accent-color, #fff) 100%);
         border-radius: 2px;
         cursor: pointer;
         flex: 1;
@@ -94,7 +98,7 @@ $font-size-xl: 2rem;
       input[type='range']::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
-        background: #58ffa8;
+        background: var(--slider-color, #58ffa8);
         border-radius: 50%;
         box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
         height: 20px;
@@ -106,20 +110,20 @@ $font-size-xl: 2rem;
 
       // Firefox
       input[type='range']::-moz-range-track {
-        background: #fff;
+        background: var(--roi-accent-color, #fff);
         border-radius: 2px;
         height: 4px;
       }
 
       input[type='range']::-moz-range-progress {
-        background-color: #58ffa8;
+        background-color: var(--slider-color, #58ffa8);
         border-radius: 2px;
         height: 4px;
       }
 
       input[type='range']::-moz-range-thumb {
-        background: #58ffa8;
-        border: 2px solid #fff;
+        background: var(--slider-color, #58ffa8);
+        border: 2px solid var(--roi-accent-color, #fff);
         border-radius: 50%;
         box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
         height: 20px;
@@ -128,16 +132,16 @@ $font-size-xl: 2rem;
 
       // IE/Edge (legacy)
       input[type='range']::-ms-fill-lower {
-        background: #58ffa8;
+        background: var(--slider-color, #58ffa8);
       }
 
       input[type='range']::-ms-fill-upper {
-        background: #fff;
+        background: var(--roi-accent-color, #fff);
       }
 
       input[type='range']::-ms-thumb {
-        background: #58ffa8;
-        border: 2px solid #fff;
+        background: var(--slider-color, #58ffa8);
+        border: 2px solid var(--roi-accent-color, #fff);
         border-radius: 50%;
         box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
         height: 20px;
@@ -145,11 +149,11 @@ $font-size-xl: 2rem;
       }
 
       input[type='range']:focus {
-        outline: 1px solid #fff;
+        outline: 1px solid var(--roi-accent-color, #fff);
       }
 
       .slider-value {
-        color: #fff;
+        color: var(--roi-text-color, #fff);
         font-size: $font-size-md;
 
         @media (min-width: $breakpoint-md) {
@@ -168,10 +172,10 @@ $font-size-xl: 2rem;
     input[type='number'] {
       background: transparent;
       border: none;
-      border-bottom: 1px solid #fff;
+      border-bottom: 1px solid var(--roi-accent-color, #fff);
       border-radius: 0;
       box-shadow: none;
-      color: #fff;
+      color: var(--roi-text-color, #fff);
       font-size: $font-size-sm;
       outline: none;
       padding: 0.5rem 0;
@@ -202,14 +206,9 @@ $font-size-xl: 2rem;
   }
 
   &__divider {
-    background: #fff;
-    border-radius: 4px;
+    background: var(--roi-accent-color, #fff);
     height: 8px;
-    margin: $spacing-sm 0;
-
-    @media (min-width: $breakpoint-md) {
-      margin: $spacing-md 0;
-    }
+    width: 100%;
   }
 
   &__results {
@@ -230,12 +229,12 @@ $font-size-xl: 2rem;
   }
 
   &__result {
-    color: #fff;
+    color: var(--roi-text-color, #fff);
     flex: 1;
     font-size: $font-size-sm;
 
     &--main {
-      color: #fff;
+      color: var(--roi-text-color, #fff);
       font-size: $font-size-sm;
       font-weight: normal;
 
@@ -246,7 +245,7 @@ $font-size-xl: 2rem;
 
     // Style the value div inside results
     >div {
-      color: #fff;
+      color: var(--roi-text-color, #fff);
       font-size: $font-size-lg;
       font-weight: bold;
 
@@ -260,9 +259,4 @@ $font-size-xl: 2rem;
     }
   }
 
-  @media (min-width: $breakpoint-md) {
-    padding: $spacing-md;
-  }
 }
-
-// Webkit browsers (Chrome, Safari, Edge)

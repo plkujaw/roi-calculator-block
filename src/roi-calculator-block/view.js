@@ -41,7 +41,15 @@ function ROICalculatorFrontEnd(props) {
 	};
 
 	return (
-		<div className="roi-calculator">
+		<div
+			className="roi-calculator"
+			style={{
+				"--slider-color": props.sliderColor,
+				"--roi-text-color": props.textColor,
+				"--roi-bg-color": props.backgroundColor,
+				"--roi-accent-color": props.accentColor,
+			}}
+		>
 			<div className="roi-calculator__inputs">
 				<div className="roi-calculator__row">
 					<div className="roi-calculator__field roi-calculator__field--wide">
@@ -173,10 +181,14 @@ function ROICalculatorFrontEnd(props) {
 							type="number"
 							min={0}
 							step={0.01}
-							value={Number(inputs.profitPerUnit).toFixed(2)}
-							onChange={(e) =>
-								handleChange("profitPerUnit", parseFloat(e.target.value))
-							}
+							value={inputs.profitPerUnit}
+							onChange={(e) => handleChange("profitPerUnit", e.target.value)}
+							onBlur={(e) => {
+								const val = parseFloat(e.target.value);
+								if (!isNaN(val)) {
+									handleChange("profitPerUnit", val.toFixed(2));
+								}
+							}}
 						/>
 					</div>
 				</div>

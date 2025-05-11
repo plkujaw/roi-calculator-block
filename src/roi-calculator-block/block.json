@@ -79,6 +79,22 @@
 		"extraUnitsPerWeekLabel": {
 			"type": "string",
 			"default": "Extra units per week"
+		},
+		"backgroundColor": {
+			"type": "string",
+			"default": "#3e6bfc"
+		},
+		"sliderColor": {
+			"type": "string",
+			"default": "#58ffa8"
+		},
+		"textColor": {
+			"type": "string",
+			"default": "#fff"
+		},
+		"accentColor": {
+			"type": "string",
+			"default": "#fff"
 		}
 	},
 	"textdomain": "roi-calculator-block",
