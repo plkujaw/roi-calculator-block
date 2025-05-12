@@ -20,3 +20,15 @@ export function calculateResults({
 		profitPerYear,
 	};
 }
+
+export function convertProfitPerUnit(profitPerUnit, conversionRate) {
+	const profit = parseFloat(profitPerUnit);
+	if (isNaN(profit)) return 0;
+	return profit * conversionRate;
+}
+
+export function safeNumber(value) {
+	if (value === "" || value === null || value === undefined) return 0;
+	const n = Number(value);
+	return isNaN(n) ? 0 : n;
+}

@@ -100,6 +100,14 @@ return array(
 			'accentColor' => array(
 				'type' => 'string',
 				'default' => '#fff'
+			),
+			'baseCurrency' => array(
+				'type' => 'string',
+				'default' => 'GBP'
+			),
+			'profitPerUnitCurrency' => array(
+				'type' => 'string',
+				'default' => 'GBP'
 			)
 		),
 		'textdomain' => 'roi-calculator-block',

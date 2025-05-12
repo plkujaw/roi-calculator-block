@@ -95,6 +95,14 @@
     "accentColor": {
       "type": "string",
       "default": "#fff"
+    },
+    "baseCurrency": {
+      "type": "string",
+      "default": "GBP"
+    },
+    "profitPerUnitCurrency": {
+      "type": "string",
+      "default": "GBP"
     }
   },
   "textdomain": "roi-calculator-block",

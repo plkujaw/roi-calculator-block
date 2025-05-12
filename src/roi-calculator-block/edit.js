@@ -4,6 +4,7 @@
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
  */
 import { __ } from "@wordpress/i18n";
+import { useState, useEffect } from "@wordpress/element";
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -33,17 +34,53 @@ import {
  * @return {Element} Element to render.
  */
 
-import { calculateResults } from "./calculatorUtils";
+import {
+	calculateResults,
+	convertProfitPerUnit,
+	safeNumber,
+} from "./calculatorUtils";
 import metadata from "./block.json";
-import { Button } from "@wordpress/components";
+import { Button, SelectControl } from "@wordpress/components";
+import { useCurrencies, useConversionRate } from "./currencyUtils";
 
 export default function Edit({ attributes, setAttributes }) {
-	const results = calculateResults(attributes);
 	const blockProps = useBlockProps({ className: "roi-calculator" });
+	const [selectedCurrency, setSelectedCurrency] = useState(
+		attributes.baseCurrency || "GBP",
+	);
+	const { currencies, isLoading } = useCurrencies();
+	const conversionRate = useConversionRate(
+		attributes.profitPerUnitCurrency,
+		attributes.baseCurrency,
+	);
+
+	// Calculate safe values for calculations
+	const safeUnitsPerHour = safeNumber(attributes.unitsPerHour);
+	const safeProfitPerUnit = safeNumber(attributes.profitPerUnit);
+	const profitPerUnitInBase = convertProfitPerUnit(
+		safeProfitPerUnit,
+		conversionRate,
+	);
+	const results = calculateResults({
+		...attributes,
+		unitsPerHour: safeUnitsPerHour,
+		profitPerUnit: profitPerUnitInBase,
+	});
 
 	return (
 		<>
 			<InspectorControls>
+				<div style={{ margin: "16px" }}>
+					<SelectControl
+						label={__("Base Currency", "roi-calculator-block")}
+						value={attributes.baseCurrency}
+						onChange={(currency) => setAttributes({ baseCurrency: currency })}
+						options={currencies}
+						disabled={isLoading}
+						__next40pxDefaultSize={true}
+						__nextHasNoMarginBottom={true}
+					/>
+				</div>
 				<PanelColorSettings
 					title={__("Block Colors", "roi-calculator-block")}
 					colorSettings={[
@@ -244,8 +281,14 @@ export default function Edit({ attributes, setAttributes }) {
 								step={1}
 								value={attributes.unitsPerHour}
 								onChange={(e) =>
-									setAttributes({ unitsPerHour: Number(e.target.value) })
+									setAttributes({ unitsPerHour: e.target.value })
 								}
+								onBlur={(e) => {
+									const val = parseInt(e.target.value, 10);
+									if (!isNaN(val)) {
+										setAttributes({ unitsPerHour: val.toString() });
+									}
+								}}
 							/>
 						</div>
 						<div className="roi-calculator__field">
@@ -260,22 +303,37 @@ export default function Edit({ attributes, setAttributes }) {
 									"roi-calculator-block",
 								)}
 							/>
-							<input
-								id="profit-per-unit"
-								type="number"
-								min={0}
-								step={0.01}
-								value={attributes.profitPerUnit}
-								onChange={(e) =>
-									setAttributes({ profitPerUnit: e.target.value })
-								}
-								onBlur={(e) => {
-									const val = parseFloat(e.target.value);
-									if (!isNaN(val)) {
-										setAttributes({ profitPerUnit: val.toFixed(2) });
+							<div className="roi-calculator__currency-select-wrapper">
+								<select
+									className="roi-calculator__currency-select"
+									value={attributes.profitPerUnitCurrency}
+									onChange={(e) =>
+										setAttributes({ profitPerUnitCurrency: e.target.value })
 									}
-								}}
-							/>
+									disabled={isLoading}
+								>
+									{currencies.map((currency) => (
+										<option key={currency.value} value={currency.value}>
+											{currency.value}
+										</option>
+									))}
+								</select>
+								<input
+									type="number"
+									min={0}
+									step={0.01}
+									value={attributes.profitPerUnit}
+									onChange={(e) =>
+										setAttributes({ profitPerUnit: e.target.value })
+									}
+									onBlur={(e) => {
+										const val = parseFloat(e.target.value);
+										if (!isNaN(val)) {
+											setAttributes({ profitPerUnit: val.toFixed(2) });
+										}
+									}}
+								/>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -297,6 +355,7 @@ export default function Edit({ attributes, setAttributes }) {
 								/>
 							</div>
 							<div>
+								<span>{attributes.baseCurrency}</span>
 								{(results.profitPerYear || 0).toLocaleString(undefined, {
 									minimumFractionDigits: 2,
 									maximumFractionDigits: 2,

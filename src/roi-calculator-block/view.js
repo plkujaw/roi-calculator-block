@@ -21,17 +21,29 @@
  */
 
 /* eslint-disable no-console */
-console.log("Hello World! (from create-block-roi-calculator-block block)");
+// console.log("Hello World! (from create-block-roi-calculator-block block)");
 /* eslint-enable no-console */
 
-import { render, useState } from "@wordpress/element";
-import { calculateResults } from "./calculatorUtils";
+import { render, useState, useEffect } from "@wordpress/element";
+import {
+	calculateResults,
+	convertProfitPerUnit,
+	safeNumber,
+} from "./calculatorUtils";
 import metadata from "./block.json";
 import { __ } from "@wordpress/i18n";
+import { useCurrencies, useConversionRate } from "./currencyUtils";
 
 function ROICalculatorFrontEnd(props) {
 	const [inputs, setInputs] = useState({ ...props });
-	const results = calculateResults(inputs);
+	const [selectedCurrency, setSelectedCurrency] = useState(
+		props.baseCurrency || "GBP",
+	);
+	const { currencies, isLoading } = useCurrencies();
+	const conversionRate = useConversionRate(
+		inputs.profitPerUnitCurrency,
+		props.baseCurrency,
+	);
 
 	const handleChange = (key, value) => {
 		setInputs((prev) => ({
@@ -39,6 +51,19 @@ function ROICalculatorFrontEnd(props) {
 			[key]: value,
 		}));
 	};
+
+	// Calculate safe values for calculations
+	const safeUnitsPerHour = safeNumber(inputs.unitsPerHour);
+	const safeProfitPerUnit = safeNumber(inputs.profitPerUnit);
+	const profitPerUnitInBase = convertProfitPerUnit(
+		safeProfitPerUnit,
+		conversionRate,
+	);
+	const results = calculateResults({
+		...inputs,
+		unitsPerHour: safeUnitsPerHour,
+		profitPerUnit: profitPerUnitInBase,
+	});
 
 	return (
 		<div
@@ -163,10 +188,15 @@ function ROICalculatorFrontEnd(props) {
 						<input
 							type="number"
 							min={0}
+							step={1}
 							value={inputs.unitsPerHour}
-							onChange={(e) =>
-								handleChange("unitsPerHour", Number(e.target.value))
-							}
+							onChange={(e) => handleChange("unitsPerHour", e.target.value)}
+							onBlur={(e) => {
+								const val = parseInt(e.target.value, 10);
+								if (!isNaN(val)) {
+									handleChange("unitsPerHour", val.toString());
+								}
+							}}
 						/>
 					</div>
 					<div className="roi-calculator__field">
@@ -177,19 +207,35 @@ function ROICalculatorFrontEnd(props) {
 									"roi-calculator-block",
 								)}
 						</span>
-						<input
-							type="number"
-							min={0}
-							step={0.01}
-							value={inputs.profitPerUnit}
-							onChange={(e) => handleChange("profitPerUnit", e.target.value)}
-							onBlur={(e) => {
-								const val = parseFloat(e.target.value);
-								if (!isNaN(val)) {
-									handleChange("profitPerUnit", val.toFixed(2));
+						<div className="roi-calculator__currency-select-wrapper">
+							<select
+								className="roi-calculator__currency-select"
+								value={inputs.profitPerUnitCurrency}
+								onChange={(e) =>
+									handleChange("profitPerUnitCurrency", e.target.value)
 								}
-							}}
-						/>
+								disabled={isLoading}
+							>
+								{currencies.map((currency) => (
+									<option key={currency.value} value={currency.value}>
+										{currency.value}
+									</option>
+								))}
+							</select>
+							<input
+								type="number"
+								min={0}
+								step={0.01}
+								value={inputs.profitPerUnit}
+								onChange={(e) => handleChange("profitPerUnit", e.target.value)}
+								onBlur={(e) => {
+									const val = parseFloat(e.target.value);
+									if (!isNaN(val)) {
+										handleChange("profitPerUnit", val.toFixed(2));
+									}
+								}}
+							/>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -203,6 +249,7 @@ function ROICalculatorFrontEnd(props) {
 								"roi-calculator-block",
 							)}
 						<div>
+							<span>{props.baseCurrency}</span>
 							{(results.profitPerYear || 0).toLocaleString(undefined, {
 								minimumFractionDigits: 2,
 								maximumFractionDigits: 2,
