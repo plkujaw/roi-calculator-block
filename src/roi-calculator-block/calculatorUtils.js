@@ -1,3 +1,4 @@
+// Calculate results
 export function calculateResults({
 	percentageIncrease,
 	hours,
@@ -21,12 +22,14 @@ export function calculateResults({
 	};
 }
 
+// Convert profit per unit
 export function convertProfitPerUnit(profitPerUnit, conversionRate) {
 	const profit = parseFloat(profitPerUnit);
 	if (isNaN(profit)) return 0;
 	return profit * conversionRate;
 }
 
+// Convert to safe number
 export function safeNumber(value) {
 	if (value === "" || value === null || value === undefined) return 0;
 	const n = Number(value);

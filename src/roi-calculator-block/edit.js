@@ -42,6 +42,7 @@ import {
 import metadata from "./block.json";
 import { Button, SelectControl } from "@wordpress/components";
 import { useCurrencies, useConversionRate } from "./currencyUtils";
+import { getAccessibleOutlineColor } from "./blockUtils";
 
 export default function Edit({ attributes, setAttributes }) {
 	const blockProps = useBlockProps({ className: "roi-calculator" });
@@ -128,11 +129,24 @@ export default function Edit({ attributes, setAttributes }) {
 					"--roi-text-color": attributes.textColor,
 					"--roi-bg-color": attributes.backgroundColor,
 					"--roi-accent-color": attributes.accentColor,
+					"--roi-outline-color": getAccessibleOutlineColor(
+						attributes.backgroundColor,
+					),
 				}}
 			>
 				<div className="roi-calculator__inputs">
 					<div className="roi-calculator__row">
-						<div className="roi-calculator__field roi-calculator__field--wide">
+						<div className="roi-calculator__field">
+							<label
+								htmlFor="percentage-increase"
+								className="screen-reader-text"
+							>
+								{attributes.percentageIncreaseLabel ||
+									__(
+										metadata.attributes.percentageIncreaseLabel.default,
+										"roi-calculator-block",
+									)}
+							</label>
 							<input
 								type="text"
 								value={attributes.percentageIncreaseLabel}
@@ -143,6 +157,13 @@ export default function Edit({ attributes, setAttributes }) {
 									metadata.attributes.percentageIncreaseLabel.default,
 									"roi-calculator-block",
 								)}
+								aria-label={
+									attributes.percentageIncreaseLabel ||
+									__(
+										metadata.attributes.percentageIncreaseLabel.default,
+										"roi-calculator-block",
+									)
+								}
 							/>
 							<div className="slider-row">
 								<input
@@ -162,13 +183,30 @@ export default function Edit({ attributes, setAttributes }) {
 											((attributes.percentageIncrease - 1) / (100 - 1)) * 100
 										}%`,
 									}}
+									aria-valuenow={attributes.percentageIncrease}
+									aria-valuemin={1}
+									aria-valuemax={100}
+									aria-label={
+										attributes.percentageIncreaseLabel ||
+										__(
+											metadata.attributes.percentageIncreaseLabel.default,
+											"roi-calculator-block",
+										)
+									}
 								/>
 								<span className="slider-value">
 									{attributes.percentageIncrease}%
 								</span>
 							</div>
 						</div>
-						<div className="roi-calculator__field roi-calculator__field--wide">
+						<div className="roi-calculator__field">
+							<label htmlFor="hours" className="screen-reader-text">
+								{attributes.hoursLabel ||
+									__(
+										metadata.attributes.hoursLabel.default,
+										"roi-calculator-block",
+									)}
+							</label>
 							<input
 								type="text"
 								value={attributes.hoursLabel}
@@ -177,6 +215,13 @@ export default function Edit({ attributes, setAttributes }) {
 									metadata.attributes.hoursLabel.default,
 									"roi-calculator-block",
 								)}
+								aria-label={
+									attributes.hoursLabel ||
+									__(
+										metadata.attributes.hoursLabel.default,
+										"roi-calculator-block",
+									)
+								}
 							/>
 							<div className="slider-row">
 								<input
@@ -194,13 +239,30 @@ export default function Edit({ attributes, setAttributes }) {
 											((attributes.hours - 1) / (24 - 1)) * 100
 										}%`,
 									}}
+									aria-valuenow={attributes.hours}
+									aria-valuemin={1}
+									aria-valuemax={24}
+									aria-label={
+										attributes.hoursLabel ||
+										__(
+											metadata.attributes.hoursLabel.default,
+											"roi-calculator-block",
+										)
+									}
 								/>
 								<span className="slider-value">{attributes.hours}</span>
 							</div>
 						</div>
 					</div>
 					<div className="roi-calculator__row">
-						<div className="roi-calculator__field roi-calculator__field--wide">
+						<div className="roi-calculator__field">
+							<label htmlFor="days" className="screen-reader-text">
+								{attributes.daysLabel ||
+									__(
+										metadata.attributes.daysLabel.default,
+										"roi-calculator-block",
+									)}
+							</label>
 							<input
 								type="text"
 								value={attributes.daysLabel}
@@ -209,6 +271,13 @@ export default function Edit({ attributes, setAttributes }) {
 									metadata.attributes.daysLabel.default,
 									"roi-calculator-block",
 								)}
+								aria-label={
+									attributes.daysLabel ||
+									__(
+										metadata.attributes.daysLabel.default,
+										"roi-calculator-block",
+									)
+								}
 							/>
 							<div className="slider-row">
 								<input
@@ -224,11 +293,28 @@ export default function Edit({ attributes, setAttributes }) {
 									style={{
 										"--percent": `${((attributes.days - 1) / (31 - 1)) * 100}%`,
 									}}
+									aria-valuenow={attributes.days}
+									aria-valuemin={1}
+									aria-valuemax={31}
+									aria-label={
+										attributes.daysLabel ||
+										__(
+											metadata.attributes.daysLabel.default,
+											"roi-calculator-block",
+										)
+									}
 								/>
 								<span className="slider-value">{attributes.days}</span>
 							</div>
 						</div>
-						<div className="roi-calculator__field roi-calculator__field--wide">
+						<div className="roi-calculator__field">
+							<label htmlFor="weeks-per-year" className="screen-reader-text">
+								{attributes.weeksPerYearLabel ||
+									__(
+										metadata.attributes.weeksPerYearLabel.default,
+										"roi-calculator-block",
+									)}
+							</label>
 							<input
 								type="text"
 								value={attributes.weeksPerYearLabel}
@@ -239,6 +325,13 @@ export default function Edit({ attributes, setAttributes }) {
 									metadata.attributes.weeksPerYearLabel.default,
 									"roi-calculator-block",
 								)}
+								aria-label={
+									attributes.weeksPerYearLabel ||
+									__(
+										metadata.attributes.weeksPerYearLabel.default,
+										"roi-calculator-block",
+									)
+								}
 							/>
 							<div className="slider-row">
 								<input
@@ -256,6 +349,16 @@ export default function Edit({ attributes, setAttributes }) {
 											((attributes.weeksPerYear - 1) / (52 - 1)) * 100
 										}%`,
 									}}
+									aria-valuenow={attributes.weeksPerYear}
+									aria-valuemin={1}
+									aria-valuemax={52}
+									aria-label={
+										attributes.weeksPerYearLabel ||
+										__(
+											metadata.attributes.weeksPerYearLabel.default,
+											"roi-calculator-block",
+										)
+									}
 								/>
 								<span className="slider-value">{attributes.weeksPerYear}</span>
 							</div>
@@ -263,6 +366,13 @@ export default function Edit({ attributes, setAttributes }) {
 					</div>
 					<div className="roi-calculator__row">
 						<div className="roi-calculator__field">
+							<label htmlFor="units-per-hour" className="screen-reader-text">
+								{attributes.unitsPerHourLabel ||
+									__(
+										metadata.attributes.unitsPerHourLabel.default,
+										"roi-calculator-block",
+									)}
+							</label>
 							<input
 								type="text"
 								value={attributes.unitsPerHourLabel}
@@ -273,25 +383,55 @@ export default function Edit({ attributes, setAttributes }) {
 									metadata.attributes.unitsPerHourLabel.default,
 									"roi-calculator-block",
 								)}
-							/>
-							<input
-								id="units-per-hour"
-								type="number"
-								min={0}
-								step={1}
-								value={attributes.unitsPerHour}
-								onChange={(e) =>
-									setAttributes({ unitsPerHour: e.target.value })
+								aria-label={
+									attributes.unitsPerHourLabel ||
+									__(
+										metadata.attributes.unitsPerHourLabel.default,
+										"roi-calculator-block",
+									)
 								}
-								onBlur={(e) => {
-									const val = parseInt(e.target.value, 10);
-									if (!isNaN(val)) {
-										setAttributes({ unitsPerHour: val.toString() });
-									}
-								}}
 							/>
+							<div className="roi-calculator__field">
+								<label htmlFor="units-per-hour" className="screen-reader-text">
+									{attributes.unitsPerHourLabel ||
+										__(
+											metadata.attributes.unitsPerHourLabel.default,
+											"roi-calculator-block",
+										)}
+								</label>
+								<input
+									id="units-per-hour"
+									type="number"
+									min={0}
+									step={1}
+									value={attributes.unitsPerHour}
+									onChange={(e) =>
+										setAttributes({ unitsPerHour: e.target.value })
+									}
+									onBlur={(e) => {
+										const val = parseInt(e.target.value, 10);
+										if (!isNaN(val)) {
+											setAttributes({ unitsPerHour: val.toString() });
+										}
+									}}
+									aria-label={
+										attributes.unitsPerHourLabel ||
+										__(
+											metadata.attributes.unitsPerHourLabel.default,
+											"roi-calculator-block",
+										)
+									}
+								/>
+							</div>
 						</div>
 						<div className="roi-calculator__field">
+							<label htmlFor="profit-per-unit" className="screen-reader-text">
+								{attributes.profitPerUnitLabel ||
+									__(
+										metadata.attributes.profitPerUnitLabel.default,
+										"roi-calculator-block",
+									)}
+							</label>
 							<input
 								type="text"
 								value={attributes.profitPerUnitLabel}
@@ -302,6 +442,13 @@ export default function Edit({ attributes, setAttributes }) {
 									metadata.attributes.profitPerUnitLabel.default,
 									"roi-calculator-block",
 								)}
+								aria-label={
+									attributes.profitPerUnitLabel ||
+									__(
+										metadata.attributes.profitPerUnitLabel.default,
+										"roi-calculator-block",
+									)
+								}
 							/>
 							<div className="roi-calculator__currency-select-wrapper">
 								<select
@@ -311,6 +458,13 @@ export default function Edit({ attributes, setAttributes }) {
 										setAttributes({ profitPerUnitCurrency: e.target.value })
 									}
 									disabled={isLoading}
+									aria-label={
+										attributes.profitPerUnitCurrency ||
+										__(
+											metadata.attributes.profitPerUnitCurrency.default,
+											"roi-calculator-block",
+										)
+									}
 								>
 									{currencies.map((currency) => (
 										<option key={currency.value} value={currency.value}>
@@ -332,127 +486,108 @@ export default function Edit({ attributes, setAttributes }) {
 											setAttributes({ profitPerUnit: val.toFixed(2) });
 										}
 									}}
+									aria-label={
+										attributes.profitPerUnitLabel ||
+										__(
+											metadata.attributes.profitPerUnitLabel.default,
+											"roi-calculator-block",
+										)
+									}
+									aria-valuenow={attributes.profitPerUnit}
+									aria-valuemin={0}
 								/>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div className="roi-calculator__divider"></div>
-				<div className="roi-calculator__results">
-					<div className="roi-calculator__results-row">
-						<div className="roi-calculator__result roi-calculator__result--main">
-							<div className="roi-calculator__field">
-								<input
-									type="text"
-									value={attributes.profitPerYearLabel}
-									onChange={(e) =>
-										setAttributes({ profitPerYearLabel: e.target.value })
-									}
-									placeholder={__(
-										metadata.attributes.profitPerYearLabel.default,
-										"roi-calculator-block",
-									)}
-								/>
+				<div className="roi-calculator__results" aria-live="polite">
+					<dl>
+						<div className="roi-calculator__results-row">
+							<div className="roi-calculator__result roi-calculator__result--main">
+								<dt className="roi-calculator__result-label">
+									{attributes.profitPerYearLabel ||
+										__(
+											metadata.attributes.profitPerYearLabel.default,
+											"roi-calculator-block",
+										)}
+								</dt>
+								<dd className="roi-calculator__result-value">
+									<span>{attributes.baseCurrency}</span>
+									{(results.profitPerYear || 0).toLocaleString(undefined, {
+										minimumFractionDigits: 2,
+										maximumFractionDigits: 2,
+									})}
+								</dd>
 							</div>
-							<div>
-								<span>{attributes.baseCurrency}</span>
-								{(results.profitPerYear || 0).toLocaleString(undefined, {
-									minimumFractionDigits: 2,
-									maximumFractionDigits: 2,
-								})}
+							<div className="roi-calculator__result roi-calculator__result--main">
+								<dt className="roi-calculator__result-label">
+									{attributes.unitsPerYearLabel ||
+										__(
+											metadata.attributes.unitsPerYearLabel.default,
+											"roi-calculator-block",
+										)}
+								</dt>
+								<dd className="roi-calculator__result-value">
+									{Math.round(results.unitsPerYear || 0).toLocaleString(
+										undefined,
+										{
+											maximumFractionDigits: 0,
+										},
+									)}
+								</dd>
 							</div>
 						</div>
-						<div className="roi-calculator__result roi-calculator__result--main">
-							<div className="roi-calculator__field">
-								<input
-									type="text"
-									value={attributes.unitsPerYearLabel}
-									onChange={(e) =>
-										setAttributes({ unitsPerYearLabel: e.target.value })
-									}
-									placeholder={__(
-										metadata.attributes.unitsPerYearLabel.default,
-										"roi-calculator-block",
-									)}
-								/>
+						<div className="roi-calculator__results-row">
+							<div className="roi-calculator__result">
+								<dt className="roi-calculator__result-label">
+									{attributes.hoursInWeekLabel ||
+										__(
+											metadata.attributes.hoursInWeekLabel.default,
+											"roi-calculator-block",
+										)}
+								</dt>
+								<dd className="roi-calculator__result-value">
+									{(results.hoursInWeek || 0).toLocaleString(undefined, {
+										minimumFractionDigits: 2,
+										maximumFractionDigits: 2,
+									})}
+								</dd>
 							</div>
-							<div>
-								{Math.round(results.unitsPerYear || 0).toLocaleString(
-									undefined,
-									{
-										maximumFractionDigits: 0,
-									},
-								)}
+							<div className="roi-calculator__result">
+								<dt className="roi-calculator__result-label">
+									{attributes.extraHoursLabel ||
+										__(
+											metadata.attributes.extraHoursLabel.default,
+											"roi-calculator-block",
+										)}
+								</dt>
+								<dd className="roi-calculator__result-value">
+									{(results.extraHours || 0).toLocaleString(undefined, {
+										minimumFractionDigits: 2,
+										maximumFractionDigits: 2,
+									})}
+								</dd>
+							</div>
+							<div className="roi-calculator__result">
+								<dt className="roi-calculator__result-label">
+									{attributes.extraUnitsPerWeekLabel ||
+										__(
+											metadata.attributes.extraUnitsPerWeekLabel.default,
+											"roi-calculator-block",
+										)}
+								</dt>
+								<dd className="roi-calculator__result-value">
+									{Math.round(results.extraUnitsPerWeek || 0).toLocaleString(
+										undefined,
+										{
+											maximumFractionDigits: 0,
+										},
+									)}
+								</dd>
 							</div>
 						</div>
-					</div>
-					<div className="roi-calculator__results-row">
-						<div className="roi-calculator__result">
-							<div className="roi-calculator__field">
-								<input
-									type="text"
-									value={attributes.hoursInWeekLabel}
-									onChange={(e) =>
-										setAttributes({ hoursInWeekLabel: e.target.value })
-									}
-									placeholder={__(
-										metadata.attributes.hoursInWeekLabel.default,
-										"roi-calculator-block",
-									)}
-								/>
-							</div>
-							<div>
-								{(results.hoursInWeek || 0).toLocaleString(undefined, {
-									minimumFractionDigits: 2,
-									maximumFractionDigits: 2,
-								})}
-							</div>
-						</div>
-						<div className="roi-calculator__result">
-							<div className="roi-calculator__field">
-								<input
-									type="text"
-									value={attributes.extraHoursLabel}
-									onChange={(e) =>
-										setAttributes({ extraHoursLabel: e.target.value })
-									}
-									placeholder={__(
-										metadata.attributes.extraHoursLabel.default,
-										"roi-calculator-block",
-									)}
-								/>
-							</div>
-							<div>
-								{(results.extraHours || 0).toLocaleString(undefined, {
-									minimumFractionDigits: 2,
-									maximumFractionDigits: 2,
-								})}
-							</div>
-						</div>
-						<div className="roi-calculator__result">
-							<div className="roi-calculator__field">
-								<input
-									type="text"
-									value={attributes.extraUnitsPerWeekLabel}
-									onChange={(e) =>
-										setAttributes({ extraUnitsPerWeekLabel: e.target.value })
-									}
-									placeholder={__(
-										metadata.attributes.extraUnitsPerWeekLabel.default,
-										"roi-calculator-block",
-									)}
-								/>
-							</div>
-							<div>
-								{Math.round(results.extraUnitsPerWeek || 0).toLocaleString(
-									undefined,
-									{
-										maximumFractionDigits: 0,
-									},
-								)}
-							</div>
-						</div>
-					</div>
+					</dl>
 				</div>
 			</div>
 		</>

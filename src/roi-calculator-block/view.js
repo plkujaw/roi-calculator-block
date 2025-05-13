@@ -33,6 +33,7 @@ import {
 import metadata from "./block.json";
 import { __ } from "@wordpress/i18n";
 import { useCurrencies, useConversionRate } from "./currencyUtils";
+import { getAccessibleOutlineColor } from "./blockUtils";
 
 function ROICalculatorFrontEnd(props) {
 	const [inputs, setInputs] = useState({ ...props });
@@ -73,11 +74,19 @@ function ROICalculatorFrontEnd(props) {
 				"--roi-text-color": props.textColor,
 				"--roi-bg-color": props.backgroundColor,
 				"--roi-accent-color": props.accentColor,
+				"--roi-outline-color": getAccessibleOutlineColor(props.backgroundColor),
 			}}
 		>
 			<div className="roi-calculator__inputs">
 				<div className="roi-calculator__row">
-					<div className="roi-calculator__field roi-calculator__field--wide">
+					<div className="roi-calculator__field">
+						<label htmlFor="percentage-increase" className="screen-reader-text">
+							{props.percentageIncreaseLabel ||
+								__(
+									metadata.attributes.percentageIncreaseLabel.default,
+									"roi-calculator-block",
+								)}
+						</label>
 						<span>
 							{props.percentageIncreaseLabel ||
 								__(
@@ -87,23 +96,39 @@ function ROICalculatorFrontEnd(props) {
 						</span>
 						<div className="slider-row">
 							<input
+								id="percentage-increase"
 								type="range"
 								min={1}
 								max={100}
 								value={inputs.percentageIncrease}
-								onChange={(e) =>
-									handleChange("percentageIncrease", Number(e.target.value))
-								}
+								disabled={true}
 								style={{
 									"--percent": `${
 										((inputs.percentageIncrease - 1) / (100 - 1)) * 100
 									}%`,
 								}}
+								aria-valuenow={inputs.percentageIncrease}
+								aria-valuemin={1}
+								aria-valuemax={100}
+								aria-label={
+									props.percentageIncreaseLabel ||
+									__(
+										metadata.attributes.percentageIncreaseLabel.default,
+										"roi-calculator-block",
+									)
+								}
 							/>
 							<span className="slider-value">{inputs.percentageIncrease}%</span>
 						</div>
 					</div>
-					<div className="roi-calculator__field roi-calculator__field--wide">
+					<div className="roi-calculator__field">
+						<label htmlFor="hours" className="screen-reader-text">
+							{props.hoursLabel ||
+								__(
+									metadata.attributes.hoursLabel.default,
+									"roi-calculator-block",
+								)}
+						</label>
 						<span>
 							{props.hoursLabel ||
 								__(
@@ -113,6 +138,7 @@ function ROICalculatorFrontEnd(props) {
 						</span>
 						<div className="slider-row">
 							<input
+								id="hours"
 								type="range"
 								min={1}
 								max={24}
@@ -121,13 +147,30 @@ function ROICalculatorFrontEnd(props) {
 								style={{
 									"--percent": `${((inputs.hours - 1) / (24 - 1)) * 100}%`,
 								}}
+								aria-valuenow={inputs.hours}
+								aria-valuemin={1}
+								aria-valuemax={24}
+								aria-label={
+									props.hoursLabel ||
+									__(
+										metadata.attributes.hoursLabel.default,
+										"roi-calculator-block",
+									)
+								}
 							/>
 							<span className="slider-value">{inputs.hours}</span>
 						</div>
 					</div>
 				</div>
 				<div className="roi-calculator__row">
-					<div className="roi-calculator__field roi-calculator__field--wide">
+					<div className="roi-calculator__field">
+						<label htmlFor="days" className="screen-reader-text">
+							{props.daysLabel ||
+								__(
+									metadata.attributes.daysLabel.default,
+									"roi-calculator-block",
+								)}
+						</label>
 						<span>
 							{props.daysLabel ||
 								__(
@@ -137,6 +180,7 @@ function ROICalculatorFrontEnd(props) {
 						</span>
 						<div className="slider-row">
 							<input
+								id="days"
 								type="range"
 								min={1}
 								max={31}
@@ -145,11 +189,28 @@ function ROICalculatorFrontEnd(props) {
 								style={{
 									"--percent": `${((inputs.days - 1) / (31 - 1)) * 100}%`,
 								}}
+								aria-valuenow={inputs.days}
+								aria-valuemin={1}
+								aria-valuemax={31}
+								aria-label={
+									props.daysLabel ||
+									__(
+										metadata.attributes.daysLabel.default,
+										"roi-calculator-block",
+									)
+								}
 							/>
 							<span className="slider-value">{inputs.days}</span>
 						</div>
 					</div>
-					<div className="roi-calculator__field roi-calculator__field--wide">
+					<div className="roi-calculator__field">
+						<label htmlFor="weeks-per-year" className="screen-reader-text">
+							{props.weeksPerYearLabel ||
+								__(
+									metadata.attributes.weeksPerYearLabel.default,
+									"roi-calculator-block",
+								)}
+						</label>
 						<span>
 							{props.weeksPerYearLabel ||
 								__(
@@ -159,6 +220,7 @@ function ROICalculatorFrontEnd(props) {
 						</span>
 						<div className="slider-row">
 							<input
+								id="weeks-per-year"
 								type="range"
 								min={1}
 								max={52}
@@ -171,6 +233,16 @@ function ROICalculatorFrontEnd(props) {
 										((inputs.weeksPerYear - 1) / (52 - 1)) * 100
 									}%`,
 								}}
+								aria-valuenow={inputs.weeksPerYear}
+								aria-valuemin={1}
+								aria-valuemax={52}
+								aria-label={
+									props.weeksPerYearLabel ||
+									__(
+										metadata.attributes.weeksPerYearLabel.default,
+										"roi-calculator-block",
+									)
+								}
 							/>
 							<span className="slider-value">{inputs.weeksPerYear}</span>
 						</div>
@@ -178,6 +250,13 @@ function ROICalculatorFrontEnd(props) {
 				</div>
 				<div className="roi-calculator__row">
 					<div className="roi-calculator__field">
+						<label htmlFor="units-per-hour" className="screen-reader-text">
+							{props.unitsPerHourLabel ||
+								__(
+									metadata.attributes.unitsPerHourLabel.default,
+									"roi-calculator-block",
+								)}
+						</label>
 						<span>
 							{props.unitsPerHourLabel ||
 								__(
@@ -186,6 +265,7 @@ function ROICalculatorFrontEnd(props) {
 								)}
 						</span>
 						<input
+							id="units-per-hour"
 							type="number"
 							min={0}
 							step={1}
@@ -197,9 +277,28 @@ function ROICalculatorFrontEnd(props) {
 									handleChange("unitsPerHour", val.toString());
 								}
 							}}
+							aria-label={
+								props.unitsPerHourLabel ||
+								__(
+									metadata.attributes.unitsPerHourLabel.default,
+									"roi-calculator-block",
+								)
+							}
+							aria-valuenow={inputs.unitsPerHour}
+							aria-valuemin={0}
 						/>
 					</div>
 					<div className="roi-calculator__field">
+						<label
+							htmlFor="profit-per-unit-currency"
+							className="screen-reader-text"
+						>
+							{props.profitPerUnitLabel ||
+								__(
+									metadata.attributes.profitPerUnitLabel.default,
+									"roi-calculator-block",
+								)}
+						</label>
 						<span>
 							{props.profitPerUnitLabel ||
 								__(
@@ -209,12 +308,20 @@ function ROICalculatorFrontEnd(props) {
 						</span>
 						<div className="roi-calculator__currency-select-wrapper">
 							<select
+								id="profit-per-unit-currency"
 								className="roi-calculator__currency-select"
 								value={inputs.profitPerUnitCurrency}
 								onChange={(e) =>
 									handleChange("profitPerUnitCurrency", e.target.value)
 								}
 								disabled={isLoading}
+								aria-label={
+									props.profitPerUnitLabel ||
+									__(
+										metadata.attributes.profitPerUnitLabel.default,
+										"roi-calculator-block",
+									)
+								}
 							>
 								{currencies.map((currency) => (
 									<option key={currency.value} value={currency.value}>
@@ -223,6 +330,7 @@ function ROICalculatorFrontEnd(props) {
 								))}
 							</select>
 							<input
+								id="profit-per-unit"
 								type="number"
 								min={0}
 								step={0.01}
@@ -234,84 +342,108 @@ function ROICalculatorFrontEnd(props) {
 										handleChange("profitPerUnit", val.toFixed(2));
 									}
 								}}
+								aria-label={
+									props.profitPerUnitLabel ||
+									__(
+										metadata.attributes.profitPerUnitLabel.default,
+										"roi-calculator-block",
+									)
+								}
+								aria-valuenow={inputs.profitPerUnit}
+								aria-valuemin={0}
 							/>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div className="roi-calculator__divider"></div>
-			<div className="roi-calculator__results">
-				<div className="roi-calculator__results-row">
-					<div className="roi-calculator__result roi-calculator__result--main">
-						{props.profitPerYearLabel ||
-							__(
-								metadata.attributes.profitPerYearLabel.default,
-								"roi-calculator-block",
-							)}
-						<div>
-							<span>{props.baseCurrency}</span>
-							{(results.profitPerYear || 0).toLocaleString(undefined, {
-								minimumFractionDigits: 2,
-								maximumFractionDigits: 2,
-							})}
+			<div className="roi-calculator__results" aria-live="polite">
+				<dl>
+					<div className="roi-calculator__results-row">
+						<div className="roi-calculator__result roi-calculator__result--main">
+							<dt className="roi-calculator__result-label">
+								{props.profitPerYearLabel ||
+									__(
+										metadata.attributes.profitPerYearLabel.default,
+										"roi-calculator-block",
+									)}
+							</dt>
+							<dd className="roi-calculator__result-value">
+								<span>{props.baseCurrency}</span>
+								{(results.profitPerYear || 0).toLocaleString(undefined, {
+									minimumFractionDigits: 2,
+									maximumFractionDigits: 2,
+								})}
+							</dd>
+						</div>
+						<div className="roi-calculator__result roi-calculator__result--main">
+							<dt className="roi-calculator__result-label">
+								{props.unitsPerYearLabel ||
+									__(
+										metadata.attributes.unitsPerYearLabel.default,
+										"roi-calculator-block",
+									)}
+							</dt>
+							<dd className="roi-calculator__result-value">
+								{Math.round(results.unitsPerYear || 0).toLocaleString(
+									undefined,
+									{
+										maximumFractionDigits: 0,
+									},
+								)}
+							</dd>
 						</div>
 					</div>
-					<div className="roi-calculator__result roi-calculator__result--main">
-						{props.unitsPerYearLabel ||
-							__(
-								metadata.attributes.unitsPerYearLabel.default,
-								"roi-calculator-block",
-							)}
-						<div>
-							{Math.round(results.unitsPerYear || 0).toLocaleString(undefined, {
-								maximumFractionDigits: 0,
-							})}
+					<div className="roi-calculator__results-row">
+						<div className="roi-calculator__result">
+							<dt className="roi-calculator__result-label">
+								{props.hoursInWeekLabel ||
+									__(
+										metadata.attributes.hoursInWeekLabel.default,
+										"roi-calculator-block",
+									)}
+							</dt>
+							<dd className="roi-calculator__result-value">
+								{(results.hoursInWeek || 0).toLocaleString(undefined, {
+									minimumFractionDigits: 2,
+									maximumFractionDigits: 2,
+								})}
+							</dd>
+						</div>
+						<div className="roi-calculator__result">
+							<dt className="roi-calculator__result-label">
+								{props.extraHoursLabel ||
+									__(
+										metadata.attributes.extraHoursLabel.default,
+										"roi-calculator-block",
+									)}
+							</dt>
+							<dd className="roi-calculator__result-value">
+								{(results.extraHours || 0).toLocaleString(undefined, {
+									minimumFractionDigits: 2,
+									maximumFractionDigits: 2,
+								})}
+							</dd>
+						</div>
+						<div className="roi-calculator__result">
+							<dt className="roi-calculator__result-label">
+								{props.extraUnitsPerWeekLabel ||
+									__(
+										metadata.attributes.extraUnitsPerWeekLabel.default,
+										"roi-calculator-block",
+									)}
+							</dt>
+							<dd className="roi-calculator__result-value">
+								{Math.round(results.extraUnitsPerWeek || 0).toLocaleString(
+									undefined,
+									{
+										maximumFractionDigits: 0,
+									},
+								)}
+							</dd>
 						</div>
 					</div>
-				</div>
-				<div className="roi-calculator__results-row">
-					<div className="roi-calculator__result">
-						{props.hoursInWeekLabel ||
-							__(
-								metadata.attributes.hoursInWeekLabel.default,
-								"roi-calculator-block",
-							)}
-						<div>
-							{(results.hoursInWeek || 0).toLocaleString(undefined, {
-								minimumFractionDigits: 2,
-								maximumFractionDigits: 2,
-							})}
-						</div>
-					</div>
-					<div className="roi-calculator__result">
-						{props.extraHoursLabel ||
-							__(
-								metadata.attributes.extraHoursLabel.default,
-								"roi-calculator-block",
-							)}
-						<div>
-							{(results.extraHours || 0).toLocaleString(undefined, {
-								minimumFractionDigits: 2,
-								maximumFractionDigits: 2,
-							})}
-						</div>
-					</div>
-					<div className="roi-calculator__result">
-						{props.extraUnitsPerWeekLabel ||
-							__(
-								metadata.attributes.extraUnitsPerWeekLabel.default,
-								"roi-calculator-block",
-							)}
-						<div>
-							{Math.round(results.extraUnitsPerWeek || 0).toLocaleString(
-								undefined,
-								{
-									maximumFractionDigits: 0,
-								},
-							)}
-						</div>
-					</div>
-				</div>
+				</dl>
 			</div>
 		</div>
 	);

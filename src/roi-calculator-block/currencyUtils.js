@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-// Utility to fetch currency list with fallback
+// Fetch currency list with fallback
 export async function fetchCurrenciesWithFallback() {
 	try {
 		const response = await fetch("https://api.frankfurter.app/currencies");
@@ -24,7 +24,7 @@ export async function fetchCurrenciesWithFallback() {
 	];
 }
 
-// Utility to fetch conversion rate between two currencies, with fallback to 1
+// Fetch conversion rate between two currencies, with fallback to 1
 export async function fetchConversionRate(from, to) {
 	if (!from || !to || from === to) return 1;
 	try {
@@ -41,6 +41,7 @@ export async function fetchConversionRate(from, to) {
 	return 1;
 }
 
+// Use currency list
 export function useCurrencies() {
 	const [currencies, setCurrencies] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
@@ -62,6 +63,7 @@ export function useCurrencies() {
 	return { currencies, isLoading };
 }
 
+// Use conversion rate between two currencies, with fallback to 1
 export function useConversionRate(from, to) {
 	const [conversionRate, setConversionRate] = useState(1);
 

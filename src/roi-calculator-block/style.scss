@@ -11,12 +11,12 @@ $breakpoint-md: 768px;
 $breakpoint-lg: 1024px;
 $spacing-sm: 1.5rem;
 $spacing-md: 2rem;
-$font-size-sm: 0.875rem;
 $font-size-md: 1rem;
 $font-size-lg: 1.5rem;
 $font-size-xl: 2rem;
 
 .roi-calculator {
+  // Main styles
   background: var(--roi-bg-color, #3e6bfc);
   border-radius: 24px;
   color: var(--roi-text-color, #fff);
@@ -32,11 +32,11 @@ $font-size-xl: 2rem;
     }
   }
 
+  // Inputs section
   &__row {
     display: flex;
     flex-direction: column;
     gap: $spacing-sm;
-    margin-bottom: $spacing-sm;
 
     @media (min-width: $breakpoint-md) {
       flex-direction: row;
@@ -49,25 +49,18 @@ $font-size-xl: 2rem;
     flex: 1;
     flex-direction: column;
     gap: 0.5rem;
-
-    &--wide {
-      @media (min-width: $breakpoint-md) {
-        flex: 2;
-      }
-    }
+    justify-content: space-between;
 
     label,
     span {
-      font-size: $font-size-sm;
+      font-size: $font-size-md;
       font-weight: 500;
       margin-bottom: 0.25rem;
-
-      @media (min-width: $breakpoint-md) {
-        font-size: $font-size-md;
-      }
     }
 
-
+    input {
+      color: var(--roi-text-color, #fff);
+    }
 
     .slider-row {
       align-items: stretch;
@@ -87,8 +80,12 @@ $font-size-xl: 2rem;
         cursor: pointer;
         flex: 1;
         height: 4px;
-        margin-bottom: 0.5rem;
         width: 100%;
+
+        &:disabled {
+          cursor: not-allowed;
+          opacity: 0.65;
+        }
       }
 
       input[type='range']::-webkit-slider-runnable-track {
@@ -150,12 +147,7 @@ $font-size-xl: 2rem;
         width: 20px;
       }
 
-      input[type='range']:focus {
-        outline: 1px solid var(--roi-accent-color, #fff);
-      }
-
       .slider-value {
-        color: var(--roi-text-color, #fff);
         font-size: $font-size-md;
 
         @media (min-width: $breakpoint-md) {
@@ -177,8 +169,7 @@ $font-size-xl: 2rem;
       border-bottom: 1px solid var(--roi-accent-color, #fff);
       border-radius: 0;
       box-shadow: none;
-      color: var(--roi-text-color, #fff);
-      font-size: $font-size-sm;
+      font-size: $font-size-md;
       outline: none;
       padding: 0.5rem 0;
       width: 100%;
@@ -187,91 +178,15 @@ $font-size-xl: 2rem;
       &::-webkit-outer-spin-button {
         opacity: 1;
       }
-
-      @media (min-width: $breakpoint-md) {
-        font-size: $font-size-md;
-      }
-
-
     }
 
     input[type='text'] {
       border: none;
       border-radius: 8px;
       color: #222;
-      font-size: $font-size-sm;
+      font-size: $font-size-md;
       padding: 0.5rem;
       width: 100%;
-
-      @media (min-width: $breakpoint-md) {
-        font-size: $font-size-md;
-      }
-    }
-  }
-
-  &__divider {
-    background: var(--roi-accent-color, #fff);
-    height: 8px;
-    width: 100%;
-  }
-
-  &__results {
-    text-align: center;
-  }
-
-  &__results-row {
-    display: flex;
-    flex-direction: column;
-    gap: $spacing-sm;
-    margin-bottom: $spacing-sm;
-
-    @media (min-width: $breakpoint-md) {
-      flex-direction: row;
-      gap: $spacing-md;
-      justify-content: space-between;
-    }
-  }
-
-  &__result {
-    color: var(--roi-text-color, #fff);
-    flex: 1;
-    font-size: $font-size-sm;
-
-    &--main {
-      color: var(--roi-text-color, #fff);
-      font-size: $font-size-sm;
-      font-weight: normal;
-
-      @media (min-width: $breakpoint-md) {
-        font-size: $font-size-md;
-      }
-    }
-
-    // Style the value div inside results
-    >div {
-      color: var(--roi-text-color, #fff);
-      font-size: $font-size-lg;
-      font-weight: bold;
-
-      @media (min-width: $breakpoint-md) {
-        font-size: $font-size-xl;
-      }
-    }
-
-    @media (min-width: $breakpoint-md) {
-      font-size: $font-size-md;
-    }
-  }
-
-  &__currency-select {
-    background: transparent;
-    border: none;
-    color: var(--roi-text-color, #fff);
-    font-size: $font-size-sm;
-    min-width: fit-content;
-
-    @media (min-width: $breakpoint-md) {
-      font-size: $font-size-md;
     }
   }
 
@@ -284,5 +199,69 @@ $font-size-xl: 2rem;
     input[type="number"] {
       border: none;
     }
+  }
+
+  &__currency-select {
+    background: transparent;
+    border: none;
+    color: var(--roi-text-color, #fff);
+    font-size: $font-size-md;
+    min-width: fit-content;
+    padding: 0.5rem 0;
+  }
+
+  // Divider
+  &__divider {
+    background: var(--roi-accent-color, #fff);
+    height: 8px;
+    width: 100%;
+  }
+
+  // Results section
+  &__results {
+    text-align: center;
+  }
+
+  &__results-row {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+    justify-content: space-between;
+
+    @media (min-width: $breakpoint-md) {
+      flex-direction: row;
+      gap: $spacing-md;
+      justify-content: space-between;
+    }
+  }
+
+  &__result {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    font-size: $font-size-md;
+    justify-content: space-between;
+
+    &--main {
+      font-size: $font-size-md;
+      font-weight: normal;
+    }
+
+      &-value {
+      font-size: $font-size-lg;
+      font-weight: bold;
+      margin: 0;
+
+      @media (min-width: $breakpoint-md) {
+        font-size: $font-size-xl;
+      }
+    }
+  }
+
+  // Focus styles
+  input:focus,
+  select:focus {
+    outline: 2px solid var(--roi-outline-color, #fff);
+    outline-offset: 2px;
   }
 }
