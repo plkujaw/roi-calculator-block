@@ -70,7 +70,7 @@ function ROICalculatorFrontEnd(props) {
 		<div
 			className="roi-calculator"
 			style={{
-				"--slider-color": props.sliderColor,
+				"--roi-slider-color": props.sliderColor,
 				"--roi-text-color": props.textColor,
 				"--roi-bg-color": props.backgroundColor,
 				"--roi-accent-color": props.accentColor,

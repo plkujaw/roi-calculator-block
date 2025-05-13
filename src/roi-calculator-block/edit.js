@@ -125,7 +125,7 @@ export default function Edit({ attributes, setAttributes }) {
 			<div
 				{...blockProps}
 				style={{
-					"--slider-color": attributes.sliderColor,
+					"--roi-slider-color": attributes.sliderColor,
 					"--roi-text-color": attributes.textColor,
 					"--roi-bg-color": attributes.backgroundColor,
 					"--roi-accent-color": attributes.accentColor,

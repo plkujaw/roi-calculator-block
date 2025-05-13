@@ -80,8 +80,8 @@ $font-size-xl: 2rem;
         -webkit-appearance: none;
         appearance: none;
         background: linear-gradient(to right,
-            var(--slider-color, #58ffa8) 0%,
-            var(--slider-color, #58ffa8) var(--percent, 50%),
+            var(--roi-slider-color, #58ffa8) 0%,
+            var(--roi-slider-color, #58ffa8) var(--percent, 50%),
             var(--roi-accent-color, #fff) var(--percent, 50%),
             var(--roi-accent-color, #fff) 100%);
         border-radius: 2px;
@@ -105,7 +105,7 @@ $font-size-xl: 2rem;
       input[type='range']::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
-        background: var(--slider-color, #58ffa8);
+        background: var(--roi-slider-color, #58ffa8);
         border-radius: 50%;
         box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
         height: 20px;
@@ -123,13 +123,13 @@ $font-size-xl: 2rem;
       }
 
       input[type='range']::-moz-range-progress {
-        background-color: var(--slider-color, #58ffa8);
+        background-color: var(--roi-slider-color, #58ffa8);
         border-radius: 2px;
         height: 4px;
       }
 
       input[type='range']::-moz-range-thumb {
-        background: var(--slider-color, #58ffa8);
+        background: var(--roi-slider-color, #58ffa8);
         border: 2px solid var(--roi-accent-color, #fff);
         border-radius: 50%;
         box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
@@ -139,7 +139,7 @@ $font-size-xl: 2rem;
 
       // IE/Edge (legacy)
       input[type='range']::-ms-fill-lower {
-        background: var(--slider-color, #58ffa8);
+        background: var(--roi-slider-color, #58ffa8);
       }
 
       input[type='range']::-ms-fill-upper {
@@ -147,7 +147,7 @@ $font-size-xl: 2rem;
       }
 
       input[type='range']::-ms-thumb {
-        background: var(--slider-color, #58ffa8);
+        background: var(--roi-slider-color, #58ffa8);
         border: 2px solid var(--roi-accent-color, #fff);
         border-radius: 50%;
         box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
