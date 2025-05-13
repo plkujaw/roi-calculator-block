@@ -7,7 +7,7 @@ An accessible, responsive Gutenberg block for WordPress that calculates estimate
 ### For WordPress Users
 
 1. **Install the plugin**:
-   - Download the latest release as a ZIP file from https://github.com/plkujaw/roi-calculator-block
+   - Download the latest release as a ZIP file from https://github.com/plkujaw/roi-calculator-block/releases
    - Upload the ZIP file via the WordPress dashboard: Plugins > Add Plugin > Upload Plugin.
 2. **Activate the plugin** in your WordPress admin (Plugins > Installed Plugins).
 
