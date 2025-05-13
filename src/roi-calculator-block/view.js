@@ -358,7 +358,7 @@ function ROICalculatorFrontEnd(props) {
 			</div>
 			<div className="roi-calculator__divider"></div>
 			<div className="roi-calculator__results" aria-live="polite">
-				<dl>
+				<dl className="roi-calculator__results-table">
 					<div className="roi-calculator__results-row">
 						<div className="roi-calculator__result roi-calculator__result--main">
 							<dt className="roi-calculator__result-label">
