@@ -103,9 +103,7 @@ function ROICalculatorFrontEnd(props) {
 								value={inputs.percentageIncrease}
 								disabled={true}
 								style={{
-									"--percent": `${
-										((inputs.percentageIncrease - 1) / (100 - 1)) * 100
-									}%`,
+									"--percent": `${(inputs.percentageIncrease / 100) * 100}%`,
 								}}
 								aria-valuenow={inputs.percentageIncrease}
 								aria-valuemin={1}
@@ -145,7 +143,7 @@ function ROICalculatorFrontEnd(props) {
 								value={inputs.hours}
 								onChange={(e) => handleChange("hours", Number(e.target.value))}
 								style={{
-									"--percent": `${((inputs.hours - 1) / (24 - 1)) * 100}%`,
+									"--percent": `${(inputs.hours / 24) * 100}%`,
 								}}
 								aria-valuenow={inputs.hours}
 								aria-valuemin={1}
@@ -187,7 +185,7 @@ function ROICalculatorFrontEnd(props) {
 								value={inputs.days}
 								onChange={(e) => handleChange("days", Number(e.target.value))}
 								style={{
-									"--percent": `${((inputs.days - 1) / (31 - 1)) * 100}%`,
+									"--percent": `${(inputs.days / 31) * 100}%`,
 								}}
 								aria-valuenow={inputs.days}
 								aria-valuemin={1}
@@ -229,9 +227,7 @@ function ROICalculatorFrontEnd(props) {
 									handleChange("weeksPerYear", Number(e.target.value))
 								}
 								style={{
-									"--percent": `${
-										((inputs.weeksPerYear - 1) / (52 - 1)) * 100
-									}%`,
+									"--percent": `${(inputs.weeksPerYear / 52) * 100}%`,
 								}}
 								aria-valuenow={inputs.weeksPerYear}
 								aria-valuemin={1}

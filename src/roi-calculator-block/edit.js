@@ -178,11 +178,7 @@ export default function Edit({ attributes, setAttributes }) {
 											percentageIncrease: Number(e.target.value),
 										})
 									}
-									style={{
-										"--percent": `${
-											((attributes.percentageIncrease - 1) / (100 - 1)) * 100
-										}%`,
-									}}
+									style={{ "--percent": `${(attributes.percentageIncrease / 100) * 100}%` }}
 									aria-valuenow={attributes.percentageIncrease}
 									aria-valuemin={1}
 									aria-valuemax={100}
@@ -234,11 +230,7 @@ export default function Edit({ attributes, setAttributes }) {
 									onChange={(e) =>
 										setAttributes({ hours: Number(e.target.value) })
 									}
-									style={{
-										"--percent": `${
-											((attributes.hours - 1) / (24 - 1)) * 100
-										}%`,
-									}}
+									style={{ "--percent": `${(attributes.hours / 24) * 100}%` }}
 									aria-valuenow={attributes.hours}
 									aria-valuemin={1}
 									aria-valuemax={24}
@@ -290,9 +282,7 @@ export default function Edit({ attributes, setAttributes }) {
 									onChange={(e) =>
 										setAttributes({ days: Number(e.target.value) })
 									}
-									style={{
-										"--percent": `${((attributes.days - 1) / (31 - 1)) * 100}%`,
-									}}
+									style={{ "--percent": `${(attributes.days / 31) * 100}%` }}
 									aria-valuenow={attributes.days}
 									aria-valuemin={1}
 									aria-valuemax={31}
@@ -344,11 +334,7 @@ export default function Edit({ attributes, setAttributes }) {
 									onChange={(e) =>
 										setAttributes({ weeksPerYear: Number(e.target.value) })
 									}
-									style={{
-										"--percent": `${
-											((attributes.weeksPerYear - 1) / (52 - 1)) * 100
-										}%`,
-									}}
+									style={{ "--percent": `${(attributes.weeksPerYear / 52) * 100}%` }}
 									aria-valuenow={attributes.weeksPerYear}
 									aria-valuemin={1}
 									aria-valuemax={52}
@@ -502,7 +488,7 @@ export default function Edit({ attributes, setAttributes }) {
 				</div>
 				<div className="roi-calculator__divider"></div>
 				<div className="roi-calculator__results" aria-live="polite">
-					<dl>
+					<dl className="roi-calculator__results-table">
 						<div className="roi-calculator__results-row">
 							<div className="roi-calculator__result roi-calculator__result--main">
 								<dt className="roi-calculator__result-label">

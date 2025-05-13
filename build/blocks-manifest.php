@@ -4,7 +4,7 @@ return array(
 	'roi-calculator-block' => array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 3,
-		'name' => 'create-block/roi-calculator-block',
+		'name' => 'aspectus/roi-calculator-block',
 		'version' => '0.1.0',
 		'title' => 'ROI Calculator Block',
 		'category' => 'widgets',
